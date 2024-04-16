@@ -102,10 +102,62 @@ createApp({
                 const j = Math.floor(Math.random() * (i + 1));
                 [array[i], array[j]] = [array[j], array[i]];
             }
-        }
+        },
+        clickAndSelect() {
+            let cards = Array.from(document.querySelectorAll('.col-3')),
+                elements = []
 
+            // Add child nodes to clickable elements
+            cards.forEach(card => {
+                elements = elements.concat(Array.from(card.children))
+            })
+
+            // Attach to mouse events
+            elements.forEach(element => {
+
+                // click: Disable
+                element.addEventListener('click', e => e.preventDefault())
+
+                // mousedown: Log the timestamp
+                element.addEventListener('mousedown', e => {
+                    let card = e.target.closest(".col-3")
+                    card.setAttribute('data-md', Date.now())
+                })
+
+                // mouseup: Determine whether to click
+                element.addEventListener('mouseup', e => {
+
+                    // Only one please
+                    e.stopPropagation();
+
+                    let card = (e.target.classList.contains("card")) ? e.target : e.target.closest('.col-3'),
+                        then = card.getAttribute('data-md'),
+                        now = Date.now()
+
+                    // Allow 200ms to distinguish click from non-click
+                    if (now - then < 200) {
+
+                        // Remove for production
+                        const selectedCards = Array.from(document.querySelectorAll(".visited"));
+                        if (selectedCards.length < 5) {
+                            card.classList.toggle('visited');
+                        } else if (selectedCards.length == 5) {
+                            card.classList.remove('visited');
+                        }
+                        console.log(selectedCards);
+
+
+                    }
+
+                    // Clean up
+                    card.removeAttribute('data-md')
+
+                })
+            })
+        }
     },
     mounted() {
+        this.clickAndSelect()
         /*22 carte
         0 21
         mischiare carte

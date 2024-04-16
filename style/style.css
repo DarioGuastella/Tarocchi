@@ -8,3 +8,12 @@ body {
     background-color: #222;
     color: white;
 }
+
+
+.visited {
+    filter: drop-shadow(0px 0px 20px white);
+}
+
+.col-3 {
+    cursor: pointer;
+}
