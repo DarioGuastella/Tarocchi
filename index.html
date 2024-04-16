@@ -16,6 +16,8 @@
     <div id="app" class="container mt-5">
         <h1 class="text-center mt-4">I tarocchi di Chiara</h1>
         <button class="btn btn-outline-secondary" @click="mischiaMazzo(deck)">Mischia carte</button>
+        <button class="btn btn-outline-secondary" @click="resetPartita()">Reset
+            partita</button>
         <div class="row">
 
             <div v-for="card in deck" class="col-3 m-3 d-flex flex-column justify-content-between"

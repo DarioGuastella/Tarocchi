@@ -97,6 +97,9 @@ createApp({
         }
     },
     methods: {
+        resetPartita() {
+            window.location.reload()
+        },
         mischiaMazzo(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -144,9 +147,6 @@ createApp({
                         } else if (selectedCards.length == 5) {
                             card.classList.remove('visited');
                         }
-                        console.log(selectedCards);
-
-
                     }
 
                     // Clean up
