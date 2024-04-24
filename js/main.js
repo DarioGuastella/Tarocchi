@@ -119,19 +119,22 @@ createApp({
 
         }
     },
-    methods: {       //ToDo: gestire array con carte selezionate
+    methods: {
+
+        startGame() {
+            this.playerCards.forEach(element => {
+                element.selected = true;
+            });
+        },
+
         selectCard(index) {
             const card = this.deck[index];
             if (this.playerCards.length < 5 && this.playerCards.includes(card) === false) {
                 this.playerCards.push(card);
-                card.selected = true;
             } else if (this.playerCards.includes(card) === true) {
                 const index = this.playerCards.indexOf(card);
                 this.playerCards.splice(index, 1);
-                card.selected = false;
             }
-            console.log(this.playerCards, "this player cards");
-            console.log(card, "card");
 
         },
         resetPartita() {

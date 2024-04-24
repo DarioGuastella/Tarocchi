@@ -18,6 +18,8 @@
         <button class="btn btn-outline-secondary" @click="mischiaMazzo(deck)">Mischia carte</button>
         <button class="btn btn-outline-secondary" @click="resetPartita()">Reset
             partita</button>
+        <button v-show="playerCards.length == 5" class="btn btn-outline-secondary" @click="startGame()">Inizia
+            partita</button>
         <div class="row">
 
             <div v-for="(card, index) in deck" class="col-3 m-3 d-flex flex-column justify-content-between"
