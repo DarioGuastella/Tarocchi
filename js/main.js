@@ -117,6 +117,8 @@ createApp({
             ],
             playerCards: [],
 
+            gameStarted: false,
+
         }
     },
     methods: {
@@ -124,6 +126,7 @@ createApp({
         startGame() {
             this.playerCards.forEach(element => {
                 element.selected = true;
+                this.gameStarted = true;
             });
         },
 
