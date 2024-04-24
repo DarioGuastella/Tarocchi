@@ -201,7 +201,8 @@ createApp({
         }
     },
     mounted() {
-        this.clickAndSelect()
+        this.clickAndSelect();
+        this.mischiaMazzo(this.deck);
         /*22 carte
         0 21
         mischiare carte
