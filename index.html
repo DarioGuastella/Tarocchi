@@ -23,7 +23,7 @@
         <h5 v-if="gameStarted==false" class="pb-4"><i>Mischia il mazzo, seleziona 5 carte e inizia la partita</i></h5>
         <button v-if="gameStarted==false" class="btn btn-outline-info mx-4" @click="mischiaMazzo()">Mischia
             carte</button>
-        <button class="btn btn-outline-danger mx-4" @click="resetPartita()">Reset
+        <button v-if="gameStarted==true" class="btn btn-outline-danger mx-4" @click="resetPartita()">Reset
             partita</button>
         <button v-show="playerCards.length == 5 && !gameStarted" class="btn btn-outline-success mx-4"
             @click="startGame()">Inizia
