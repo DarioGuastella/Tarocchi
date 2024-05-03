@@ -20,6 +20,7 @@
     <!-- Container generale -->
     <div id="app" class="container-fluid mt-5 text-center">
         <h1 class="text-center m-4">I tarocchi di Dado</h1>
+        <h5 class="pb-4"><i>Mischia il mazzo, seleziona 5 carte e inizia la partita</i></h5>
         <button v-if="gameStarted==false" class="btn btn-outline-info mx-4" @click="mischiaMazzo()">Mischia
             carte</button>
         <button class="btn btn-outline-danger mx-4" @click="resetPartita()">Reset
