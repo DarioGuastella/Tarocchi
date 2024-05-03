@@ -145,6 +145,8 @@ createApp({
     },
     methods: {
 
+        //fa iniziare la partita, nascondendo il mazzo di carte e mostrando solo le carte selezionate.
+
         startGame() {
             this.playerCards.forEach(element => {
                 element.selected = true;
@@ -152,12 +154,21 @@ createApp({
             });
         },
 
-        selectCard(index) {
-            const card = this.deck[index];
-            if (this.playerCards.length < 5 && this.playerCards.includes(card) === false) {
+        //verifica se la carta è presente nell'array delle carte selezionate
+
+        isCardSelected(card) {
+            return this.playerCards.includes(card);
+        },
+
+
+        selectCard(card) {
+            const index = this.playerCards.indexOf(card);
+
+            //se nell'array delle carte selezionate sono presenti meno di 5 carte, pusho la carta selezionata
+
+            if (this.playerCards.length < 5 && !this.isCardSelected(card)) {
                 this.playerCards.push(card);
-            } else if (this.playerCards.includes(card) === true) {
-                const index = this.playerCards.indexOf(card);
+            } else if (this.isCardSelected(card)) {     //se la carta è già stata selezionata e viene cliccata, la rimuovo dall'array.
                 this.playerCards.splice(index, 1);
             }
 
@@ -166,71 +177,17 @@ createApp({
             window.location.reload()
         },
         mischiaMazzo() {
+
+            //Ho utilizzato l'algoritmo di Fisher-Yates (Knuth Shuffle) per mischiare le carte del mazzo
+
             for (let i = this.deck.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [this.deck[i], this.deck[j]] = [this.deck[j], this.deck[i]];
             }
         },
-        clickAndSelect() {
-            let cards = Array.from(document.querySelectorAll('.col-1')),
-                elements = []
 
-            // Add child nodes to clickable elements
-            cards.forEach(card => {
-                elements = elements.concat(Array.from(card.children))
-            })
-
-            // Attach to mouse events
-            elements.forEach(element => {
-
-                // click: Disable
-                element.addEventListener('click', e => e.preventDefault())
-
-                // mousedown: Log the timestamp
-                element.addEventListener('mousedown', e => {
-                    let card = e.target.closest(".col-1")
-                    card.setAttribute('data-md', Date.now())
-                })
-
-                // mouseup: Determine whether to click
-                element.addEventListener('mouseup', e => {
-
-                    // Only one please
-                    e.stopPropagation();
-
-                    let card = (e.target.classList.contains("card")) ? e.target : e.target.closest('.col-1'),
-                        then = card.getAttribute('data-md'),
-                        now = Date.now()
-
-                    // Allow 200ms to distinguish click from non-click
-                    if (now - then < 200) {
-
-                        // Remove for production
-                        const selectedCards = Array.from(document.querySelectorAll(".visited"));
-                        if (selectedCards.length < 5) {
-                            card.classList.toggle('visited');
-                        } else if (selectedCards.length == 5) {
-                            card.classList.remove('visited');
-                        }
-                    }
-
-                    // Clean up
-                    card.removeAttribute('data-md')
-
-                }
-                )
-            })
-        }
     },
     mounted() {
-        this.clickAndSelect();
         this.mischiaMazzo();
-        /*22 carte
-        0 21
-        mischiare carte
-        pescare 1 sola o 3
-        numero, immagine, nome
-        reset*/
-
     }
 }).mount('#app')

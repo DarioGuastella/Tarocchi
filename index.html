@@ -17,9 +17,13 @@
 </head>
 
 <body>
-    <!-- Container generale -->
+    <!-- Container vue -->
+
     <div id="app" class="container-fluid mt-5 text-center">
         <h1 class="text-center m-4">I tarocchi di Dado</h1>
+
+        <!-- Gestisco visibilità dei pulsanti in base alle azioni dell'utente -->
+
         <h5 v-if="gameStarted==false" class="pb-4"><i>Mischia il mazzo, seleziona 5 carte e inizia la partita</i></h5>
         <button v-if="gameStarted==false" class="btn btn-outline-info mx-4" @click="mischiaMazzo()">Mischia
             carte</button>
@@ -29,18 +33,24 @@
             @click="startGame()">Inizia
             partita</button>
 
+        <!-- Mostro mazzo di carte coperte, nascondo il mazzo se la partita inizia -->
 
         <template v-if="!gameStarted">
             <transition-group name="shuffle" tag="div" class="row m-auto justify-content-center pt-4">
 
+                <!-- Aggiungo la classe css "active" se la carta è selezionata -->
+
                 <div v-for="(card, index) in deck" :key="card.id"
-                    class="col-1 my-3 px-2 d-flex flex-column justify-content-between" style="width: 10rem;"
-                    @click="selectCard(index)">
+                    class="col-1 my-3 px-2 d-flex flex-column justify-content-between"
+                    :class="{ 'active': isCardSelected(card) }" style="width: 10rem;" @click="selectCard(card)">
                     <img :src="(card.selected == true) ? card.image : './img/unnamed.jpg'" class="card-img-top"
                         alt="{{card.name}}">
                 </div>
             </transition-group>
         </template>
+
+        <!-- Mostro le carte selezionate se la partita inizia -->
+
         <template v-if="gameStarted">
             <div class="row m-auto justify-content-center pt-4">
                 <div v-for="(card, index) in playerCards" class="col-2 m-3 d-flex flex-column justify-content-between"
