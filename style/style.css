@@ -17,3 +17,7 @@ body {
 .col-1 {
     cursor: pointer;
 }
+
+.shuffle-move {
+    transition: transform 1s;
+}

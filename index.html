@@ -14,32 +14,36 @@
 <body>
     <!-- Container generale -->
     <div id="app" class="container-fluid mt-5 text-center">
-        <h1 class="text-center m-4">I tarocchi di Chiara</h1>
-        <button v-if="gameStarted==false" class="btn btn-outline-info mx-4" @click="mischiaMazzo(deck)">Mischia
+        <h1 class="text-center m-4">I tarocchi di Dado</h1>
+        <button v-if="gameStarted==false" class="btn btn-outline-info mx-4" @click="mischiaMazzo()">Mischia
             carte</button>
         <button class="btn btn-outline-danger mx-4" @click="resetPartita()">Reset
             partita</button>
         <button v-show="playerCards.length == 5 && !gameStarted" class="btn btn-outline-success mx-4"
             @click="startGame()">Inizia
             partita</button>
-        <div class="row m-auto justify-content-center">
-            <template v-if="!gameStarted">
-                <div v-for="(card, index) in deck" class="col-1 my-3 px-2 d-flex flex-column justify-content-between"
-                    style="width: 10rem;" @click="selectCard(index)">
+
+
+        <template v-if="!gameStarted">
+            <transition-group name="shuffle" tag="div" class="row m-auto justify-content-center">
+
+                <div v-for="(card, index) in deck" :key="card.id"
+                    class="col-1 my-3 px-2 d-flex flex-column justify-content-between" style="width: 10rem;"
+                    @click="selectCard(index)">
                     <img :src="(card.selected == true) ? card.image : './img/unnamed.jpg'" class="card-img-top"
                         alt="{{card.name}}">
                 </div>
-            </template>
-            <template v-else>
+            </transition-group>
+        </template>
+        <template v-if="gameStarted">
+            <div class="row m-auto justify-content-center">
                 <div v-for="(card, index) in playerCards" class="col-2 m-3 d-flex flex-column justify-content-between"
                     style="width: 18rem;">
                     <img :src="card.image" class="card-img-top" alt="{{card.name}}">
                     <p class="card-text">{{card.name}}</p>
                 </div>
-            </template>
-
-
-        </div>
+            </div>
+        </template>
     </div>
 
 
