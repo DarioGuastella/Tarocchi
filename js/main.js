@@ -150,7 +150,7 @@ createApp({
             }
         },
         clickAndSelect() {
-            let cards = Array.from(document.querySelectorAll('.col-3')),
+            let cards = Array.from(document.querySelectorAll('.col-1')),
                 elements = []
 
             // Add child nodes to clickable elements
@@ -166,7 +166,7 @@ createApp({
 
                 // mousedown: Log the timestamp
                 element.addEventListener('mousedown', e => {
-                    let card = e.target.closest(".col-3")
+                    let card = e.target.closest(".col-1")
                     card.setAttribute('data-md', Date.now())
                 })
 
@@ -176,7 +176,7 @@ createApp({
                     // Only one please
                     e.stopPropagation();
 
-                    let card = (e.target.classList.contains("card")) ? e.target : e.target.closest('.col-3'),
+                    let card = (e.target.classList.contains("card")) ? e.target : e.target.closest('.col-1'),
                         then = card.getAttribute('data-md'),
                         now = Date.now()
 

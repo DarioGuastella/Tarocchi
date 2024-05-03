@@ -24,10 +24,10 @@
             partita</button>
         <div class="row m-auto justify-content-center">
             <template v-if="!gameStarted">
-                <div v-for="(card, index) in deck" class="col-3 m-3 d-flex flex-column justify-content-between"
-                    style="width: 18rem;" @click="selectCard(index)">
-                    <img :src="(card.selected == true) ? card.image : 'https://lh3.googleusercontent.com/proxy/mY45oqVs692Wre4FX7QDsRtB8mjYy7tokkmJWWIWbDV6UPb5PWrDcUIk9f1vmRZlABCfpl561Pt4PKggmKW5ZKG9FdTTa1rEC0saPnKMh8Ih61wxme_DluoT'"
-                        class="card-img-top" alt="{{card.name}}">
+                <div v-for="(card, index) in deck" class="col-1 my-3 px-2 d-flex flex-column justify-content-between"
+                    style="width: 10rem;" @click="selectCard(index)">
+                    <img :src="(card.selected == true) ? card.image : './img/unnamed.jpg'" class="card-img-top"
+                        alt="{{card.name}}">
                 </div>
             </template>
             <template v-else>
